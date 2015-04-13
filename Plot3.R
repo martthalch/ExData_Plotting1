@@ -10,17 +10,17 @@ data<- read.table("household_power_consumption.txt",
                   na.strings = "?")
 
 #Convert the date & time formats and concatenate
-data$Date <- dmy_hms(sprintf('%s %s', data$Date, data$Time))
+data$DateTime <- dmy_hms(sprintf('%s %s', data$Date, data$Time))
 
 #Subset the data and only get the applicable dates: 2007-02-01 and 2007-02-02
-reducedData<-subset(data, Date >= "2007-02-01" & Date <= "2007-02-02")
+reducedData<-subset(data, DateTime >= "2007-02-01 00:00:00" & Date <= "2007-02-03 00:00:00")
 
-#Create plot2:Histogram Global Active Power vs Frequency
+#Create plot3:energy sub metering
 png("plot3.png")
-plot(reducedData$Date, reducedData$Sub_metering_1, pch=".", xlab = "", ylab = "Energy Sub Metering")
-lines(reducedData$Date, reducedData$Sub_metering_1, col = "black")
-lines(reducedData$Date, reducedData$Sub_metering_2, col = "red")
-lines(reducedData$Date, reducedData$Sub_metering_3, col = "blue")
+plot(reducedData$DateTime, reducedData$Sub_metering_1, pch=".", xlab = "", ylab = "Energy Sub Metering")
+lines(reducedData$DateTime, reducedData$Sub_metering_1, col = "black")
+lines(reducedData$DateTime, reducedData$Sub_metering_2, col = "red")
+lines(reducedData$DateTime, reducedData$Sub_metering_3, col = "blue")
 legend(
   "topright", 
   lwd=c(2.5,2.5),
